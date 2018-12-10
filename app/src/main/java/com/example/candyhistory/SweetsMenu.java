@@ -3,6 +3,8 @@ package com.example.candyhistory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,15 +24,6 @@ public class SweetsMenu extends AppCompatActivity
         setContentView(R.layout.activity_sweets_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -80,18 +73,20 @@ public class SweetsMenu extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        Fragment newFragment = null;
 
-        } else if (id == R.id.nav_slideshow) {
+        if (id == R.id.nav_cookie) {
+            // Launch the PythagFragment
+            newFragment = new fragment_cookiemenu();
+        }
 
-        } else if (id == R.id.nav_manage) {
+        //if the fragment isn't null. switch fragments
+        if(newFragment != null){
+            FragmentManager fm = getSupportFragmentManager();
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+            //can continue to call methods in row because they return same data type
+            fm.beginTransaction()
+                    .replace(R.id.container_main, newFragment).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
